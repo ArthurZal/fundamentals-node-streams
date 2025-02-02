@@ -18,9 +18,21 @@ class OneToHundredStream extends Readable {
     }
 }
 
-fetch('http://localhost:3030', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: new OneToHundredStream(),
-    duplex: 'half'
-})
+async function sendData() {
+    
+    try {
+        const response = await fetch('http://localhost:3030', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: new OneToHundredStream(),
+            duplex: 'half'
+        });
+
+        const responseText = await response.text();
+        console.log(responseText);
+    
+    } catch (error) {
+        console.log(error)
+    }
+}
+sendData();
