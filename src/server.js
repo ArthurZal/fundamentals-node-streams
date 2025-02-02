@@ -10,14 +10,14 @@ const server = createServer((req, res) => {
     if(method === 'GET' && url === '/users') {
 
         return res
-            .setHeader('content-type', 'application/json')
+            .setHeader('Content-Type', 'application/json')
             .end(JSON.stringify(users));
     }
     if(method === 'POST' && url === '/users') {
         users.push({
             id: 1,
             name: 'Arthur Oliveira',
-            email: 'zallarthur@gmai.com'
+            email: 'zallarthur@gmail.com'
         })
 
         return res.writeHead(201).end();
