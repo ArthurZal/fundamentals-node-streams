@@ -4,7 +4,7 @@ class OneToHundredStream extends Readable {
     index = 1;
     
     _read() {
-        setTimeout(()=> {
+        setTimeout(() => {
             const chunck = this.index++;
 
         if(chunck > 100) {

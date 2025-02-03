@@ -4,20 +4,35 @@ const hostName = 'localhost';
 const port = 3000;
 const users = [];
 
-const server = createServer((req, res) => {
+const server = createServer(async (req, res) => {
     const { method, url } = req;
 
-    if(method === 'GET' && url === '/users') {
+    const buffers = [];
+
+    for await (const chunck of req) {
+        buffers.push(chunck)
+    }
+
+    try {
+        req.body = JSON.parse(Buffer.concat(buffers).toString());
+    } catch {
+        req.body =  null;
+    }
+
+
+    if (method === 'GET' && url === '/users') {
 
         return res
             .setHeader('Content-Type', 'application/json')
             .end(JSON.stringify(users));
     }
-    if(method === 'POST' && url === '/users') {
+    if (method === 'POST' && url === '/users') {
+        const { name, email } = req.body;
+
         users.push({
             id: 1,
-            name: 'Arthur Oliveira',
-            email: 'zallarthur@gmail.com'
+            name,
+            email,
         })
 
         return res.writeHead(201).end();

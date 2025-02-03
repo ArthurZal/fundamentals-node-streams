@@ -12,7 +12,7 @@ class InverseNumberStream extends Transform {
 
 }
 
-const server = createServer(async (req, res)=> {
+const server = createServer(async (req, res) => {
     const buffers = [];
 
     for await (const chunck of req) {
